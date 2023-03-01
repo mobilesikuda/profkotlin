@@ -2,21 +2,19 @@ plugins {
     kotlin("jvm") version "1.8.0"
 }
 
-group = "ru.sikuda"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
+allprojects{
+    repositories {
+        google()
+        mavenCentral()
+        maven( url = "https://jitpack.io")
+    }
 }
 
-dependencies {
-    testImplementation(kotlin("test"))
-}
+subprojects{
+    group = "ru.sikuda"
+    version = "1.0-SNAPSHOT"
 
-tasks.test {
-    useJUnitPlatform()
-}
-
-kotlin {
-    jvmToolchain(8)
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>{
+        kotlinOptions.jvmTarget = "11"
+    }
 }
